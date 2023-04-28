@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "fractionappa5d52212": {}
+      },
+      "api": {
+        "fractionapp": {}
+      },
+      "storage": {
+        "imagestorage": {}
       }
     }
   }
