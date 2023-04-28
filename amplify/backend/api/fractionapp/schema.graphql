@@ -9,3 +9,12 @@ type Note @model @auth(rules: [ { allow: public } ] ){
   description: String
   image: String
 }
+
+
+type Question @model @auth(rules: [ { allow: public } ] ){
+  id: ID!
+  isCorrect: String!
+  questionText: String
+  answerGiven: String
+  correctAnswer: String
+}
