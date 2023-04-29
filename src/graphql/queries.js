@@ -32,3 +32,38 @@ export const listNotes = /* GraphQL */ `
     }
   }
 `;
+export const getQuestion = /* GraphQL */ `
+  query GetQuestion($id: ID!) {
+    getQuestion(id: $id) {
+      id
+      QID
+      isCorrect
+      questionText
+      answerGiven
+      correctAnswer
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listQuestions = /* GraphQL */ `
+  query ListQuestions(
+    $filter: ModelQuestionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listQuestions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        QID
+        isCorrect
+        questionText
+        answerGiven
+        correctAnswer
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

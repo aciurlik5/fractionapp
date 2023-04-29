@@ -24,11 +24,13 @@ export default function QuestionUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
+    QID: "",
     isCorrect: "",
     questionText: "",
     answerGiven: "",
     correctAnswer: "",
   };
+  const [QID, setQID] = React.useState(initialValues.QID);
   const [isCorrect, setIsCorrect] = React.useState(initialValues.isCorrect);
   const [questionText, setQuestionText] = React.useState(
     initialValues.questionText
@@ -44,6 +46,7 @@ export default function QuestionUpdateForm(props) {
     const cleanValues = questionRecord
       ? { ...initialValues, ...questionRecord }
       : initialValues;
+    setQID(cleanValues.QID);
     setIsCorrect(cleanValues.isCorrect);
     setQuestionText(cleanValues.questionText);
     setAnswerGiven(cleanValues.answerGiven);
@@ -62,6 +65,7 @@ export default function QuestionUpdateForm(props) {
   }, [idProp, questionModelProp]);
   React.useEffect(resetStateValues, [questionRecord]);
   const validations = {
+    QID: [],
     isCorrect: [{ type: "Required" }],
     questionText: [],
     answerGiven: [],
@@ -93,6 +97,7 @@ export default function QuestionUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
+          QID,
           isCorrect,
           questionText,
           answerGiven,
@@ -144,6 +149,34 @@ export default function QuestionUpdateForm(props) {
       {...rest}
     >
       <TextField
+        label="Qid"
+        isRequired={false}
+        isReadOnly={false}
+        value={QID}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              QID: value,
+              isCorrect,
+              questionText,
+              answerGiven,
+              correctAnswer,
+            };
+            const result = onChange(modelFields);
+            value = result?.QID ?? value;
+          }
+          if (errors.QID?.hasError) {
+            runValidationTasks("QID", value);
+          }
+          setQID(value);
+        }}
+        onBlur={() => runValidationTasks("QID", QID)}
+        errorMessage={errors.QID?.errorMessage}
+        hasError={errors.QID?.hasError}
+        {...getOverrideProps(overrides, "QID")}
+      ></TextField>
+      <TextField
         label="Is correct"
         isRequired={true}
         isReadOnly={false}
@@ -152,6 +185,7 @@ export default function QuestionUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              QID,
               isCorrect: value,
               questionText,
               answerGiven,
@@ -179,6 +213,7 @@ export default function QuestionUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              QID,
               isCorrect,
               questionText: value,
               answerGiven,
@@ -206,6 +241,7 @@ export default function QuestionUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              QID,
               isCorrect,
               questionText,
               answerGiven: value,
@@ -233,6 +269,7 @@ export default function QuestionUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              QID,
               isCorrect,
               questionText,
               answerGiven,

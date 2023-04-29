@@ -14,12 +14,14 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type QuestionUpdateFormInputValues = {
+    QID?: string;
     isCorrect?: string;
     questionText?: string;
     answerGiven?: string;
     correctAnswer?: string;
 };
 export declare type QuestionUpdateFormValidationValues = {
+    QID?: ValidationFunction<string>;
     isCorrect?: ValidationFunction<string>;
     questionText?: ValidationFunction<string>;
     answerGiven?: ValidationFunction<string>;
@@ -28,6 +30,7 @@ export declare type QuestionUpdateFormValidationValues = {
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type QuestionUpdateFormOverridesProps = {
     QuestionUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    QID?: PrimitiveOverrideProps<TextFieldProps>;
     isCorrect?: PrimitiveOverrideProps<TextFieldProps>;
     questionText?: PrimitiveOverrideProps<TextFieldProps>;
     answerGiven?: PrimitiveOverrideProps<TextFieldProps>;

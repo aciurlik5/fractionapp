@@ -23,11 +23,13 @@ export default function QuestionCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
+    QID: "",
     isCorrect: "",
     questionText: "",
     answerGiven: "",
     correctAnswer: "",
   };
+  const [QID, setQID] = React.useState(initialValues.QID);
   const [isCorrect, setIsCorrect] = React.useState(initialValues.isCorrect);
   const [questionText, setQuestionText] = React.useState(
     initialValues.questionText
@@ -40,6 +42,7 @@ export default function QuestionCreateForm(props) {
   );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
+    setQID(initialValues.QID);
     setIsCorrect(initialValues.isCorrect);
     setQuestionText(initialValues.questionText);
     setAnswerGiven(initialValues.answerGiven);
@@ -47,6 +50,7 @@ export default function QuestionCreateForm(props) {
     setErrors({});
   };
   const validations = {
+    QID: [],
     isCorrect: [{ type: "Required" }],
     questionText: [],
     answerGiven: [],
@@ -78,6 +82,7 @@ export default function QuestionCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
+          QID,
           isCorrect,
           questionText,
           answerGiven,
@@ -128,6 +133,34 @@ export default function QuestionCreateForm(props) {
       {...rest}
     >
       <TextField
+        label="Qid"
+        isRequired={false}
+        isReadOnly={false}
+        value={QID}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              QID: value,
+              isCorrect,
+              questionText,
+              answerGiven,
+              correctAnswer,
+            };
+            const result = onChange(modelFields);
+            value = result?.QID ?? value;
+          }
+          if (errors.QID?.hasError) {
+            runValidationTasks("QID", value);
+          }
+          setQID(value);
+        }}
+        onBlur={() => runValidationTasks("QID", QID)}
+        errorMessage={errors.QID?.errorMessage}
+        hasError={errors.QID?.hasError}
+        {...getOverrideProps(overrides, "QID")}
+      ></TextField>
+      <TextField
         label="Is correct"
         isRequired={true}
         isReadOnly={false}
@@ -136,6 +169,7 @@ export default function QuestionCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              QID,
               isCorrect: value,
               questionText,
               answerGiven,
@@ -163,6 +197,7 @@ export default function QuestionCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              QID,
               isCorrect,
               questionText: value,
               answerGiven,
@@ -190,6 +225,7 @@ export default function QuestionCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              QID,
               isCorrect,
               questionText,
               answerGiven: value,
@@ -217,6 +253,7 @@ export default function QuestionCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              QID,
               isCorrect,
               questionText,
               answerGiven,
