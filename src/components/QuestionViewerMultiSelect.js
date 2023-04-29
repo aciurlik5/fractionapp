@@ -4,12 +4,17 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { API, } from "aws-amplify";
+import {
+  createQuestion as createQuestionMutation,
+} from "../graphql/mutations";
 
 export default function QuestionViewerSingleSelect({questions}) {
     // 
     // {{'QuestionText': 'Which fraction is bigger than 1/2', 'QID': 'L1Q', 'CorrectCount:2}, [{'OptionText'; '1/4', 'isCorrect': false}, {'OptionText'; '2/3', 'isCorrect': true}, {'OptionText': '3/4', 'isCorrect': true}]}
     // 
     const [currentQuestion, setCurrentQuestion] = useState(0);
+    let guessCount = 1;
     const style = {
         position: 'absolute',
         top: '50%',
@@ -81,14 +86,17 @@ export default function QuestionViewerSingleSelect({questions}) {
     function evaluateAnswer(){
         const array = Array.from(document.querySelectorAll("input[type=checkbox]:checked")).map((elem) => [elem.value, elem.id])
         console.log(array);
+        let ansSelected = [];
         let isCorrect = true;
         for(let i=0; i<array.length; i++){
+            ansSelected.push(array[i][1]);
             if(array[i][0] === 'false'){
                 isCorrect = false;
             }
         }
 
         const nextQuestion = currentQuestion + 1;
+        createQuestion(isCorrect, ansSelected, questions[currentQuestion]);
         if(isCorrect && array.length === questions[currentQuestion].q.CorrectCount){
             if (nextQuestion < questions.length) {
                 //todo figure out how to clear
@@ -97,11 +105,32 @@ export default function QuestionViewerSingleSelect({questions}) {
             handleGoodOpen()
         }
         else{
+            guessCount = guessCount + 1;
             handleBadOpen()
         }
        
-       
+    
       
+    }
+
+
+
+    async function createQuestion(isCorrect, selectedValue, currentQuestion) {
+      const data = {
+          "QID": currentQuestion.q['QID'],
+          "isCorrect": isCorrect,
+          "questionText": currentQuestion.q['QuestionText'],
+          "answerGiven": selectedValue,
+          "correctAnswer": currentQuestion.q.correctAnswer,
+          "guessCount": guessCount
+        }
+        console.log(data);
+      await API.graphql({
+        query: createQuestionMutation,
+        variables: { input: data },
+        
+      });
+  
     }
 }
   

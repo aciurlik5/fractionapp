@@ -6,7 +6,13 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Grid,
+  SwitchField,
+  TextField,
+} from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Question } from "../models";
 import { fetchByPath, validateField } from "./utils";
@@ -25,10 +31,11 @@ export default function QuestionUpdateForm(props) {
   } = props;
   const initialValues = {
     QID: "",
-    isCorrect: "",
+    isCorrect: false,
     questionText: "",
     answerGiven: "",
     correctAnswer: "",
+    guessCount: "",
   };
   const [QID, setQID] = React.useState(initialValues.QID);
   const [isCorrect, setIsCorrect] = React.useState(initialValues.isCorrect);
@@ -41,6 +48,7 @@ export default function QuestionUpdateForm(props) {
   const [correctAnswer, setCorrectAnswer] = React.useState(
     initialValues.correctAnswer
   );
+  const [guessCount, setGuessCount] = React.useState(initialValues.guessCount);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = questionRecord
@@ -51,6 +59,7 @@ export default function QuestionUpdateForm(props) {
     setQuestionText(cleanValues.questionText);
     setAnswerGiven(cleanValues.answerGiven);
     setCorrectAnswer(cleanValues.correctAnswer);
+    setGuessCount(cleanValues.guessCount);
     setErrors({});
   };
   const [questionRecord, setQuestionRecord] = React.useState(questionModelProp);
@@ -66,10 +75,11 @@ export default function QuestionUpdateForm(props) {
   React.useEffect(resetStateValues, [questionRecord]);
   const validations = {
     QID: [],
-    isCorrect: [{ type: "Required" }],
+    isCorrect: [],
     questionText: [],
     answerGiven: [],
     correctAnswer: [],
+    guessCount: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -102,6 +112,7 @@ export default function QuestionUpdateForm(props) {
           questionText,
           answerGiven,
           correctAnswer,
+          guessCount,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -162,6 +173,7 @@ export default function QuestionUpdateForm(props) {
               questionText,
               answerGiven,
               correctAnswer,
+              guessCount,
             };
             const result = onChange(modelFields);
             value = result?.QID ?? value;
@@ -176,13 +188,13 @@ export default function QuestionUpdateForm(props) {
         hasError={errors.QID?.hasError}
         {...getOverrideProps(overrides, "QID")}
       ></TextField>
-      <TextField
+      <SwitchField
         label="Is correct"
-        isRequired={true}
-        isReadOnly={false}
-        value={isCorrect}
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={isCorrect}
         onChange={(e) => {
-          let { value } = e.target;
+          let value = e.target.checked;
           if (onChange) {
             const modelFields = {
               QID,
@@ -190,6 +202,7 @@ export default function QuestionUpdateForm(props) {
               questionText,
               answerGiven,
               correctAnswer,
+              guessCount,
             };
             const result = onChange(modelFields);
             value = result?.isCorrect ?? value;
@@ -203,7 +216,7 @@ export default function QuestionUpdateForm(props) {
         errorMessage={errors.isCorrect?.errorMessage}
         hasError={errors.isCorrect?.hasError}
         {...getOverrideProps(overrides, "isCorrect")}
-      ></TextField>
+      ></SwitchField>
       <TextField
         label="Question text"
         isRequired={false}
@@ -218,6 +231,7 @@ export default function QuestionUpdateForm(props) {
               questionText: value,
               answerGiven,
               correctAnswer,
+              guessCount,
             };
             const result = onChange(modelFields);
             value = result?.questionText ?? value;
@@ -246,6 +260,7 @@ export default function QuestionUpdateForm(props) {
               questionText,
               answerGiven: value,
               correctAnswer,
+              guessCount,
             };
             const result = onChange(modelFields);
             value = result?.answerGiven ?? value;
@@ -274,6 +289,7 @@ export default function QuestionUpdateForm(props) {
               questionText,
               answerGiven,
               correctAnswer: value,
+              guessCount,
             };
             const result = onChange(modelFields);
             value = result?.correctAnswer ?? value;
@@ -287,6 +303,39 @@ export default function QuestionUpdateForm(props) {
         errorMessage={errors.correctAnswer?.errorMessage}
         hasError={errors.correctAnswer?.hasError}
         {...getOverrideProps(overrides, "correctAnswer")}
+      ></TextField>
+      <TextField
+        label="Guess count"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={guessCount}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              QID,
+              isCorrect,
+              questionText,
+              answerGiven,
+              correctAnswer,
+              guessCount: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.guessCount ?? value;
+          }
+          if (errors.guessCount?.hasError) {
+            runValidationTasks("guessCount", value);
+          }
+          setGuessCount(value);
+        }}
+        onBlur={() => runValidationTasks("guessCount", guessCount)}
+        errorMessage={errors.guessCount?.errorMessage}
+        hasError={errors.guessCount?.hasError}
+        {...getOverrideProps(overrides, "guessCount")}
       ></TextField>
       <Flex
         justifyContent="space-between"

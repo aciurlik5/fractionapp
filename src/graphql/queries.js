@@ -41,6 +41,7 @@ export const getQuestion = /* GraphQL */ `
       questionText
       answerGiven
       correctAnswer
+      guessCount
       createdAt
       updatedAt
     }
@@ -60,6 +61,7 @@ export const listQuestions = /* GraphQL */ `
         questionText
         answerGiven
         correctAnswer
+        guessCount
         createdAt
         updatedAt
       }

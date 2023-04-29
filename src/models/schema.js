@@ -93,8 +93,8 @@ export const schema = {
                 "isCorrect": {
                     "name": "isCorrect",
                     "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
+                    "type": "Boolean",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "questionText": {
@@ -115,6 +115,13 @@ export const schema = {
                     "name": "correctAnswer",
                     "isArray": false,
                     "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "guessCount": {
+                    "name": "guessCount",
+                    "isArray": false,
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -164,5 +171,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.0",
-    "version": "d6e165fdee49a7d2d21dda0edaf75b40"
+    "version": "b90d9626c2a226db74de8b0ab4d903a6"
 };

@@ -45,10 +45,11 @@ type EagerQuestion = {
   };
   readonly id: string;
   readonly QID?: string | null;
-  readonly isCorrect: string;
+  readonly isCorrect?: boolean | null;
   readonly questionText?: string | null;
   readonly answerGiven?: string | null;
   readonly correctAnswer?: string | null;
+  readonly guessCount?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -60,10 +61,11 @@ type LazyQuestion = {
   };
   readonly id: string;
   readonly QID?: string | null;
-  readonly isCorrect: string;
+  readonly isCorrect?: boolean | null;
   readonly questionText?: string | null;
   readonly answerGiven?: string | null;
   readonly correctAnswer?: string | null;
+  readonly guessCount?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

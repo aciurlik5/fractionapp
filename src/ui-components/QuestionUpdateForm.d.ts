@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { Question } from "../models";
 export declare type ValidationResponse = {
@@ -15,26 +15,29 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type QuestionUpdateFormInputValues = {
     QID?: string;
-    isCorrect?: string;
+    isCorrect?: boolean;
     questionText?: string;
     answerGiven?: string;
     correctAnswer?: string;
+    guessCount?: number;
 };
 export declare type QuestionUpdateFormValidationValues = {
     QID?: ValidationFunction<string>;
-    isCorrect?: ValidationFunction<string>;
+    isCorrect?: ValidationFunction<boolean>;
     questionText?: ValidationFunction<string>;
     answerGiven?: ValidationFunction<string>;
     correctAnswer?: ValidationFunction<string>;
+    guessCount?: ValidationFunction<number>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type QuestionUpdateFormOverridesProps = {
     QuestionUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
     QID?: PrimitiveOverrideProps<TextFieldProps>;
-    isCorrect?: PrimitiveOverrideProps<TextFieldProps>;
+    isCorrect?: PrimitiveOverrideProps<SwitchFieldProps>;
     questionText?: PrimitiveOverrideProps<TextFieldProps>;
     answerGiven?: PrimitiveOverrideProps<TextFieldProps>;
     correctAnswer?: PrimitiveOverrideProps<TextFieldProps>;
+    guessCount?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type QuestionUpdateFormProps = React.PropsWithChildren<{
     overrides?: QuestionUpdateFormOverridesProps | undefined | null;

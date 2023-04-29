@@ -4,11 +4,16 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { API, } from "aws-amplify";
+import {
+  createQuestion as createQuestionMutation,
+} from "../graphql/mutations";
 
 
 export default function QuestionViewerSingleSelect({questions}) {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
+    let guessCount = 1;
 
     const style = {
         position: 'absolute',
@@ -81,12 +86,15 @@ export default function QuestionViewerSingleSelect({questions}) {
      
     )
 
-    function evaluateAnswer(){
+    async function evaluateAnswer(){
+       let isCorrect = false;
         console.log('doing')
         var getSelectedValue = document.querySelector(   
             'input[name="question"]:checked');   
-        console.log(getSelectedValue.value);
+        console.log(getSelectedValue);
+        console.log(questions[currentQuestion]);
         if(getSelectedValue.value === 'true'){
+          isCorrect= true;
             handleGoodOpen()
             const nextQuestion = currentQuestion + 1;
             if (nextQuestion < questions.length) {
@@ -94,11 +102,31 @@ export default function QuestionViewerSingleSelect({questions}) {
             }
         }
         else{
+            guessCount = guessCount + 1;
             handleBadOpen()
         }
+        createQuestion(isCorrect, getSelectedValue, questions[currentQuestion]);
      
         
     }
+
+
+     async function createQuestion(isCorrect, selectedValue, currentQuestion) {
+    const data = {
+        "QID": currentQuestion.q['QID'],
+        "isCorrect": isCorrect,
+        "questionText": currentQuestion.q['QuestionText'],
+        "answerGiven": selectedValue.id,
+        "correctAnswer": currentQuestion.q.correctAnswer,
+        "guessCount": guessCount
+      }
+      console.log(data);
+    await API.graphql({
+      query: createQuestionMutation,
+      variables: { input: data },
+    });
+
+  }
 
  
   }

@@ -2,10 +2,16 @@
 
 
 import '../../App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TableAggregate from './TableAggregate';
+import { API, } from "aws-amplify";
+import { listQuestions } from "../../graphql/queries";
 
 function Aggregate() {
+
+  useEffect(() => {
+    fetchQuestion();
+  }, []);
 
 const [currentLesson, setCurrentLesson] = useState([{'ID': 'L1Q1', 'PFT': 75, 'PLQ': 2 , 'QuestionText': 'Question 1: Select the whole numbers' }, {'ID': 'L1Q2', 'PFT': '72', 'PLQ': 3, 'QuestionText': 'Question 2: Which number comes directly after four?'}]);
 const data = [[{'ID': 'L1Q1', 'PFT': 75, 'PLQ': 2 , 'QuestionText': 'L1Q1' }, {'ID': 'L1Q2', 'PFT': '72', 'PLQ': 3, 'QuestionText': 'L1Q2'}], 
@@ -42,6 +48,15 @@ function getOption() {
     setCurrentLesson(data[lesson]);
 
 }
+
+
+  async function fetchQuestion() {
+    const apiData = await API.graphql({ query: listQuestions, variables:  {'_deleted': false} });
+    const notesFromAPI = apiData.data.listQuestions.items;
+    console.log(notesFromAPI);
+  //  const newTest = notesFromAPI[].where((item) => !item['_deleted']).toList()
+  //  console.log(notesFromAPI[0]['_deleted']);
+  }
 
 }
 
