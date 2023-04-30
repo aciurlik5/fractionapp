@@ -17,6 +17,7 @@ export default function TableAggregate({tableData}) {
     
 
     return (
+
         <div className="Lesson-Content-Text">
           <table>
   <thead>

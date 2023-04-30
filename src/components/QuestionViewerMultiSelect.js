@@ -9,12 +9,15 @@ import {
   createQuestion as createQuestionMutation,
 } from "../graphql/mutations";
 
+
+let guessCount = 1;
+
 export default function QuestionViewerSingleSelect({questions}) {
     // 
     // {{'QuestionText': 'Which fraction is bigger than 1/2', 'QID': 'L1Q', 'CorrectCount:2}, [{'OptionText'; '1/4', 'isCorrect': false}, {'OptionText'; '2/3', 'isCorrect': true}, {'OptionText': '3/4', 'isCorrect': true}]}
     // 
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    let guessCount = 1;
+
     const style = {
         position: 'absolute',
         top: '50%',
@@ -41,9 +44,10 @@ export default function QuestionViewerSingleSelect({questions}) {
         <div>
             <p>
             {questions[currentQuestion].q.QuestionText}<br></br>
+            <img width="500" height="300" src={"https://drive.google.com/uc?export=view&id="+questions[currentQuestion].q.QuestionImageLink} alt="fractionText"></img>
             </p>
             {questions[currentQuestion].a.map(item => {
-                return (<><input type="checkbox" id={item.OptionText} name="question" value={item.isCorrect}>
+                return (<><input type="checkbox" id={item.value} name="question" value={item.isCorrect}>
                 </input><label for={questions[currentQuestion].q.QID}>{item.OptionText}</label><br></br></>);
              })}
              <button class="Lesson-Content-Button"onClick={() => {
@@ -89,22 +93,28 @@ export default function QuestionViewerSingleSelect({questions}) {
         let ansSelected = [];
         let isCorrect = true;
         for(let i=0; i<array.length; i++){
+          console.log(array);
             ansSelected.push(array[i][1]);
             if(array[i][0] === 'false'){
                 isCorrect = false;
             }
         }
+        if( array.length !== questions[currentQuestion].q.CorrectCount){
+          isCorrect = false;
+        }
 
+        //&& array.length === questions[currentQuestion].q.CorrectCount
         const nextQuestion = currentQuestion + 1;
         createQuestion(isCorrect, ansSelected, questions[currentQuestion]);
-        if(isCorrect && array.length === questions[currentQuestion].q.CorrectCount){
+        if(isCorrect){
             if (nextQuestion < questions.length) {
+              guessCount = 1;
                 //todo figure out how to clear
                 setCurrentQuestion(nextQuestion);
             } 
             handleGoodOpen()
         }
-        else{
+        if(!isCorrect){
             guessCount = guessCount + 1;
             handleBadOpen()
         }
@@ -125,11 +135,11 @@ export default function QuestionViewerSingleSelect({questions}) {
           "guessCount": guessCount
         }
         console.log(data);
-      // await API.graphql({
-      //   query: createQuestionMutation,
-      //   variables: { input: data },
+      await API.graphql({
+        query: createQuestionMutation,
+        variables: { input: data },
         
-      // });
+      });
   
     }
 }

@@ -1,0 +1,30 @@
+{
+
+    "Questions": [ 
+        {"q": {"QuestionText" : "Select the wires that are equivalent to 1/2", "QID": "ML3Q1", "correctAnswer": "1/2 (written/shown as 2/4 and 3/6)", "CorrectCount": 2,  "QuestionImageLink": "1PUalLQJOs80lQFUy2mmiUj7Jmp6Q5tC3"}, 
+        "a": [{"OptionText": "Wire A", "isCorrect": true, "value": "2/4"}, 
+        {"OptionText": "Wire B", "isCorrect": false, "value": "3/5"}, 
+        {"OptionText": "Wire C", "isCorrect": true, "value": "3/6"}, 
+        {"OptionText": "Wire D", "isCorrect": false, "value": "4/6"},
+        {"OptionText": "Wire E", "isCorrect": false, "value": "2/2"}]},
+
+        {"q": {"QuestionText" : "Select the wires that are equivalent to 2/8", "QID": "ML3Q2", "correctAnswer": "1/2 (written/shown as 1/4)", "CorrectCount": 2,  "QuestionImageLink": "1XWU32JTDgUoojvyLtcOZlAgSXXs0Dy6g"}, 
+        "a": [{"OptionText": "Wire A", "isCorrect": false, "value": "2/7"}, 
+        {"OptionText": "Wire B", "isCorrect": true, "value": "1/4"}, 
+        {"OptionText": "Wire C", "isCorrect": true, "value": "1/4"}, 
+        {"OptionText": "Wire D", "isCorrect": false, "value": "1/2"},
+        {"OptionText": "Wire E", "isCorrect": false, "value": "1/5"}]}
+       
+    ],
+
+
+    "QuestionType": "MultiSelect", 
+    "VideoLink": "https://www.youtube.com/embed/ndeFPqR2cgE",
+    "AudioLinks": [{"Speaker": "H", "Link": "https://drive.google.com/file/d/16AyOKLCsv6hL_VZguv26CjCzRZMHQzmV/preview"}, 
+                   {"Speaker": "AI", "Link": "https://drive.google.com/file/d/12RUWQDi5UHlA8Qxv_Mg45nllhWWmgfvE/preview"},
+                   {"Speaker": "H", "Link": "https://drive.google.com/file/d/16_ATa-ufucvW6Rkni8wseDTNDe43rgp0/preview"}
+            
+                ]
+
+
+}

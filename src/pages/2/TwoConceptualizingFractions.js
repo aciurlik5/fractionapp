@@ -1,9 +1,9 @@
 import '../../App.css';
 import AudioPlayer from '../../components/AudioPlayer'
 import VideoPlayer from '../../components/VideoPlayer'
-import QuestionViewerMultiSelect from '../../components/QuestionViewerMultiSelect'
+import QuestionViewerSingleSelectWithImages from '../../components/QuestionViewerSingleSelectWithImages'
 import {useEffect, useState} from 'react';
-import lessonConfig from './OneSession.json'
+import lessonConfig from './TwoSession.json'
 import heroSpeakerImage from '../../content/BugGirl.png'
 import aiSpeakerImage from '../../content/DAI.png'
 
@@ -32,16 +32,22 @@ function LessonTwo() {
         </p>
 
     {count === 0 &&
-    <AudioPlayer
-      speakerImage={heroSpeakerImage}
-      audioLink={lessonConfig.AudioLinks[0].Link}/>
+    <><AudioPlayer
+          speakerImage={aiSpeakerImage}
+          audioLink={lessonConfig.AudioLinks[0].Link} />
+          
+        <AudioPlayer
+            speakerImage={heroSpeakerImage}
+            audioLink={lessonConfig.AudioLinks[1].Link} />
+        
+        <AudioPlayer
+            speakerImage={aiSpeakerImage}
+            audioLink={lessonConfig.AudioLinks[2].Link} /></>
         
     }
     {count === 1 &&
-    <div>
-    <AudioPlayer
-           speakerImage={aiSpeakerImage}
-      audioLink={lessonConfig.AudioLinks[1].Link}/>
+
+   
 
 <div>
     <VideoPlayer
@@ -49,26 +55,23 @@ function LessonTwo() {
 </div>
       
 
-    </div> 
+
 }
 
     {count ===2 &&
-     <QuestionViewerMultiSelect
-        questions={[{q:{'QuestionText': 'Select all whole numbers', 'QID': 'L1Q', 'CorrectCount': 2}, a:[{'OptionText': '1/2', 'isCorrect': false}, {'OptionText': '50', 'isCorrect': true}, {'OptionText': '.5', 'isCorrect': false},  {'OptionText': '3', 'isCorrect': true}]}, 
-        {q:{'QuestionText': 'What number comes directly after four when counting?', 'QID': 'L1Q', 'CorrectCount': 1}, a:[{'OptionText': '5', 'isCorrect': true}, {'OptionText': '6', 'isCorrect': false}, {'OptionText': '3', 'isCorrect': false}]}]}
+     <QuestionViewerSingleSelectWithImages
+        questions={lessonConfig.Questions}
         /> 
     }  
 
 
 {count === 3 &&
 <div>
-         
 <AudioPlayer
-      speakerImage={heroSpeakerImage}
-      audioLink={lessonConfig.AudioLinks[2].Link}/>
-        <br></br>
+            speakerImage={heroSpeakerImage}
+            audioLink={lessonConfig.AudioLinks[3].Link} />
 
-        Congrats on Mastering Whole Numbers!
+        Congrats on Mastering Visualizing Fractions!
     </div>
 
     

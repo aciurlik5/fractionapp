@@ -9,13 +9,14 @@ import {
   createQuestion as createQuestionMutation,
 } from "../graphql/mutations";
 
+
 let guessCount = 1;
 
 
 export default function QuestionViewerSingleSelect({questions}) {
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
-
+    
 
     const style = {
         position: 'absolute',
@@ -51,8 +52,9 @@ export default function QuestionViewerSingleSelect({questions}) {
             {questions[currentQuestion].q.QuestionText}<br></br>
             </p>
             {questions[currentQuestion].a.map(item => {
-                return (<><input type="radio" id={item.OptionText} name="question" value={item.isCorrect}>
-                </input><label for={questions[currentQuestion].q.QID}>{item.OptionText}</label><br></br></>);
+                const link = "https://drive.google.com/uc?export=view&id=" + item.imageLink;
+                return (<><input type="radio"  id={item.OptionText} name="question" value={item.isCorrect}>
+                </input><label for={questions[currentQuestion].q.QID}>  <img width="150" height="100" src={link} alt="fractionText"></img></label><br></br></>);
              })}
              <button onClick={() => {
                evaluateAnswer();
@@ -90,7 +92,6 @@ export default function QuestionViewerSingleSelect({questions}) {
 
     async function evaluateAnswer(){
        let isCorrect = false;
-        console.log('doing')
         var getSelectedValue = document.querySelector(   
             'input[name="question"]:checked');   
         if(getSelectedValue.value === 'true'){
@@ -98,7 +99,7 @@ export default function QuestionViewerSingleSelect({questions}) {
             handleGoodOpen()
             const nextQuestion = currentQuestion + 1;
             if (nextQuestion < questions.length) {
-              guessCount = 1;
+                guessCount = 1;
                 setCurrentQuestion(nextQuestion);
             }
         }

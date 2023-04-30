@@ -74,7 +74,9 @@ import {
 // } from "./graphql/mutations";
 import QuestionViewerSingleSelect from './components/QuestionViewerSingleSelect'
 import LessonOne from './pages/1/OneWholeNumbers';
-
+import LessonTwo from './pages/2/TwoConceptualizingFractions';
+import LessonThree from './pages/3/ThreeEquivilantFractions';
+import LessonFour from './pages/4/FourOrderingFractions';
 {/* <header className="App-header">
         <p>
           Under Construction
@@ -155,7 +157,7 @@ const App = ({ signOut }) => {
     //     {q:{'QuestionText': 'Which fraction is bigger than 1/3', 'QID': 'L1Q', 'CorrectCount': 2}, a:[{'OptionText': '8/8', 'isCorrect': true}, {'OptionText': '3/3', 'isCorrect': true}]}]}
     //     />
 
-    <LessonOne/>
+    <Aggregate/>
  
   );
 };
