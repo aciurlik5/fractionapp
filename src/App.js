@@ -73,6 +73,7 @@ import {
 //   deleteNote as deleteNoteMutation,
 // } from "./graphql/mutations";
 import QuestionViewerSingleSelect from './components/QuestionViewerSingleSelect'
+import LessonOne from './pages/1/OneWholeNumbers';
 
 {/* <header className="App-header">
         <p>
@@ -154,7 +155,7 @@ const App = ({ signOut }) => {
     //     {q:{'QuestionText': 'Which fraction is bigger than 1/3', 'QID': 'L1Q', 'CorrectCount': 2}, a:[{'OptionText': '8/8', 'isCorrect': true}, {'OptionText': '3/3', 'isCorrect': true}]}]}
     //     />
 
-    <Aggregate/>
+    <LessonOne/>
  
   );
 };

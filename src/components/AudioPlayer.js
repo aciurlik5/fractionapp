@@ -8,10 +8,11 @@ export default function Profile({audioLink, speakerImage}) {
             <img
                 src={speakerImage}
                 alt="Speaker"
+                width="105" 
+                height="100"
             />
-            <audio controls className='Audio-player'>
-                <source src={audioLink} type="audio/mpeg"></source>
-            </audio>
+        <iframe title="instructionalAudio" src={audioLink} width="450" height="100" allow="autoplay"></iframe>
+
         </div>
      
     )

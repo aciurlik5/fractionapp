@@ -121,10 +121,10 @@ export default function QuestionViewerSingleSelect({questions}) {
         "guessCount": guessCount
       }
       console.log(data);
-    await API.graphql({
-      query: createQuestionMutation,
-      variables: { input: data },
-    });
+    // await API.graphql({
+    //   query: createQuestionMutation,
+    //   variables: { input: data },
+    // });
 
   }
 
