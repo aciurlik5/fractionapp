@@ -84,24 +84,48 @@ function LessonThree() {
 
 
 
+
 <div>
 
-{count < 3 && <div
-        style={{textAlign: "right", paddingRight: "15px"}}
+{count > 0 && count < 3 &&  
+      <div>
+
+      <button
+          style={{alignItems: "left", paddingRight: "15px"}}
+        className='Lesson-Content-Button-Nav'
+         onClick={() => {
+          handleClickBack();
+            }}>Back</button>
+
+
+        <button
+          style={{alignItems: "right", paddingRight: "15px"}}
+        className='Lesson-Content-Button-Nav'
+         onClick={() => {
+            handleClick();
+            }}>Continue</button>
+
+      
+        </div>
+}
+
+{count === 0 && <div
+        style={{textAlign: "left", paddingLeft: "15px"}}
         >
             <button
-        className='Lesson-Content-Button'
+        className='Lesson-Content-Button-Nav'
          onClick={() => {
             handleClick();
             }}>Continue</button>
         </div>
 }
 
-{count > 0 && <div
+
+{count === 3 && <div
         style={{textAlign: "left", paddingLeft: "15px"}}
         >
             <button
-        className='Lesson-Content-Button'
+        className='Lesson-Content-Button-Nav'
          onClick={() => {
             handleClickBack();
             }}>Back</button>

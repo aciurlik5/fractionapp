@@ -54,7 +54,9 @@ export default function QuestionViewerSingleSelect({questions}) {
                 return (<><input type="radio" id={item.OptionText} name="question" value={item.isCorrect}>
                 </input><label for={questions[currentQuestion].q.QID}>{item.OptionText}</label><br></br></>);
              })}
-             <button onClick={() => {
+             <button 
+             className = "Lesson-Content-Button"
+             onClick={() => {
                evaluateAnswer();
             }}>Submit</button>
 

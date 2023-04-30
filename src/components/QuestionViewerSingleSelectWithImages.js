@@ -56,7 +56,9 @@ export default function QuestionViewerSingleSelect({questions}) {
                 return (<><input type="radio"  id={item.OptionText} name="question" value={item.isCorrect}>
                 </input><label for={questions[currentQuestion].q.QID}>  <img width="150" height="100" src={link} alt="fractionText"></img></label><br></br></>);
              })}
-             <button onClick={() => {
+             <button 
+             className = "Lesson-Content-Button"
+             onClick={() => {
                evaluateAnswer();
             }}>Submit</button>
 

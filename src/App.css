@@ -29,17 +29,33 @@
   background-color: rgb(232, 27, 194);
   color: white;
   max-width: 100px;
-  padding: 15px 15px 15px 15px;
+  padding: 10px 10px 10px 10px;
   text-align: center;
   display: inline-block;
   font-size: 16px;
   border-radius: 8px;
+  margin: 10px;
+ 
+
+}
+
+
+.Lesson-Content-Button-Nav{
+  background-color: rgb(27, 232, 123);
+  color: black;
+  padding: 10px 10px 10px 10px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px;
+  margin: 2px;
  
 
 }
 
 
 .Lesson-Content-Text {
+  margin: 0 auto;
   background-color: #282c34;
   display: flex;
   flex-direction: column;
