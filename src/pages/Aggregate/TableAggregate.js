@@ -24,7 +24,7 @@ export default function TableAggregate({tableData}) {
     <tr>
       <th>Question Text</th>
       <th>% Correct on First Try</th>
-      <th>% Last Question</th>
+      <th>% Correct on Second Try</th>
     </tr>
   </thead>
   <tbody>
