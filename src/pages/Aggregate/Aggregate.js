@@ -83,6 +83,7 @@ function getOption() {
       const firstTryPercentage = ((correctCount / dataSplitByQuestion[key].length) * 100).toFixed(2);
       let secondTryPercentage = 'No Incorrect Answers Given (No second try needed)';
       if(incorrectCount > 0){
+        console.log(secondGuessCount);
          secondTryPercentage = ((secondGuessCount/ incorrectCount) * 100).toFixed(2);
       }
 
